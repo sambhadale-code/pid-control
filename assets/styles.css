@@ -1,0 +1,141 @@
+:root {
+  --bg: #f5f3ee;
+  --panel: #fffdf9;
+  --ink: #1f2933;
+  --muted: #52606d;
+  --accent: #2b5d8c;
+  --accent-2: #c46855;
+  --line: #d8d1c6;
+  --code: #112033;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+
+header {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  margin-top: 1.8rem;
+  margin-bottom: 0.7rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+p, li {
+  font-size: 1.05rem;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.1rem;
+  border-left: 4px solid var(--accent);
+  background: rgba(43, 93, 140, 0.06);
+  color: var(--muted);
+}
+
+.code-block,
+pre {
+  background: var(--code);
+  color: #edf6ff;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 8px;
+  font-family: "Consolas", monospace;
+  font-size: 0.95rem;
+}
+
+nav {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  margin: 1.5rem 0;
+}
+
+nav a {
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.callout {
+  background: rgba(196, 104, 85, 0.08);
+  border: 1px solid rgba(196, 104, 85, 0.35);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin: 1.2rem 0;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: bold;
+}
+
+figure {
+  margin: 1.5rem 0;
+}
+
+img {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.caption {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+a {
+  color: var(--accent);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: white;
+}
+
+th, td {
+  border: 1px solid var(--line);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: rgba(43, 93, 140, 0.07);
+}
+
+small {
+  color: var(--muted);
+}

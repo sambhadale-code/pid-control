@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 1: PID assignment overview</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="kicker">Lesson 1</div>
+        <h1>PID control: how to read this assignment and build the solution</h1>
+      </header>
+
+      <nav>
+        <a href="../reference/pid-control-reference.html">Reference</a>
+        <a href="../RESOURCES.md">Resources</a>
+        <a href="../GLOSSARY.md">Glossary</a>
+      </nav>
+
+      <p>The assignment is not asking for magic. It is asking for a clean story: <strong>what the controller is doing, why the math makes sense, and how the graph changes when the gains change</strong>. That is exactly what PID control is: a feedback loop that keeps reducing the error between the target and the current value.</p>
+
+      <blockquote>
+        A good mental model is a shower: you turn the hot/cold knobs until the water temperature matches the target. PID does the same thing automatically, but for machines.
+      </blockquote>
+
+      <h2>1. The basic idea</h2>
+      <p>At each moment, the controller measures the current value, compares it to the target, and decides how much force or command to apply next. The error is:</p>
+      <pre>error = setpoint - measured_value</pre>
+      <p>Then the controller combines three signals:</p>
+      <ul>
+        <li><strong>P</strong>: reacts to the current error.</li>
+        <li><strong>I</strong>: remembers past error and removes a persistent offset.</li>
+        <li><strong>D</strong>: reacts to how fast the error is changing and reduces oscillation.</li>
+      </ul>
+
+      <pre>u(t) = Kp e(t) + Ki ∫e(t) dt + Kd de(t)/dt</pre>
+
+      <h2>2. What the assignment is really asking</h2>
+      <p>The document must teach the 10 required sections, but the hidden goal is to show understanding rather than memorization.</p>
+      <ol>
+        <li>Explain the loop clearly.</li>
+        <li>Derive and interpret the PID formula.</li>
+        <li>Model the 1 kg spring-damper plant.</li>
+        <li>Measure performance with standard metrics.</li>
+        <li>Show how P alone behaves, then add I and D.</li>
+        <li>Compare P, PI, PD, and full PID.</li>
+        <li>Diagnose real-world problems and fixes.</li>
+        <li>Explain tuning by hand and with Ziegler–Nichols.</li>
+        <li>Implement the controller in Python with the fixes.</li>
+        <li>Connect the result to real robots and common myths.</li>
+      </ol>
+
+      <h2>3. The physical system you will simulate</h2>
+      <p>The reference system is a 1 kg mass attached to a spring and damper:</p>
+      <pre>m x'' + c x' + k x = F</pre>
+      <p>with <strong>m = 1 kg</strong>, <strong>c = 10 N·s/m</strong>, and <strong>k = 20 N/m</strong>. The controller pushes on the mass until the position reaches 1 m. The spring naturally resists motion, so a constant force is needed to hold the mass at a nonzero position.</p>
+
+      <h2>4. What to implement in code</h2>
+      <p>A good project structure is:</p>
+      <ul>
+        <li>simulate the plant</li>
+        <li>implement PID with anti-windup and derivative filtering</li>
+        <li>extract performance metrics</li>
+        <li>generate the graphs for each section</li>
+      </ul>
+      <p>Use <strong>NumPy</strong> for the numerical integration and <strong>Matplotlib</strong> for all plots. Every figure should include a clear title, axis labels with units, a legend, and one sentence explaining what it shows.</p>
+
+      <h2>5. The inside of the controller</h2>
+      <div class="code-block">u = Kp * e + Ki * integral + Kd * derivative</div>
+      <p>The main idea is simple: the controller produces a command <strong>u</strong> from error. It tries to drive the error toward zero. The challenge is choosing gains that are fast enough without becoming unstable, noisy, or saturated.</p>
+
+      <h2>6. Why this matters in the interview</h2>
+      <p>The interview is likely to change one parameter and ask you to predict the outcome before running the code. That means you need intuition, not just a script. Practice this mental checklist:</p>
+      <ul>
+        <li>more Kp -> faster response, more overshoot</li>
+        <li>more Ki -> removes offset, can wind up</li>
+        <li>more Kd -> more damping, more noise sensitivity</li>
+        <li>slower timestep -> more lag and worse control</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Important:</strong> for the assignment, do not just say “higher Kp is better.” Say exactly what happens to rise time, overshoot, and settling time, and tie it back to the graph you generated.
+      </div>
+
+      <h2>7. Recommended primary source</h2>
+      <p>The best starting reference is the <a href="https://ctms.engin.umich.edu/CTMS/index.php?example=Introduction&section=ControlPID" target="_blank" rel="noreferrer">Control Tutorials for MATLAB and Simulink: PID Control</a>. It matches the assignment’s teaching style and gives the clearest beginner-friendly explanation.</p>
+
+      <p>Ask follow-up questions to the agent any time a graph, formula, or tuning result feels fuzzy. The aim is to make the assignment feel intuitive, not intimidating.</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PID control reference</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="kicker">Reference</div>
+        <h1>PID Control Quick Reference</h1>
+      </header>
+
+      <h2>Core equation</h2>
+      <pre>u(t) = Kp e(t) + Ki ∫e(t) dt + Kd de(t)/dt</pre>
+      <p>where <strong>e(t) = setpoint - measurement</strong>.</p>
+
+      <h2>Discrete-time version</h2>
+      <pre>e_k = r_k - y_k
+I_k = I_{k-1} + e_k * dt
+D_k = (e_k - e_{k-1}) / dt
+u_k = Kp * e_k + Ki * I_k + Kd * D_k</pre>
+
+      <h2>What each term does</h2>
+      <table>
+        <thead>
+          <tr><th>Term</th><th>Meaning</th><th>Typical effect</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>P</td><td>Current error</td><td>Faster response, but can leave a residual offset</td></tr>
+          <tr><td>I</td><td>Accumulated past error</td><td>Removes steady-state error, but can overshoot</td></tr>
+          <tr><td>D</td><td>Rate of change of error</td><td>Damps oscillation and improves stability</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Four performance measures</h2>
+      <ul>
+        <li><strong>Rise time</strong>: time to go from 10% to 90% of the final value.</li>
+        <li><strong>Overshoot</strong>: maximum amount above the target, expressed as a percentage.</li>
+        <li><strong>Settling time</strong>: time until the response stays inside a small threshold band.</li>
+        <li><strong>Steady-state error</strong>: final offset from the target.</li>
+      </ul>
+
+      <h2>Common tuning intuition</h2>
+      <ul>
+        <li>Raise Kp to get to the target faster.</li>
+        <li>Raise Ki to eliminate offset, but watch for windup.</li>
+        <li>Raise Kd to suppress bounce, but do not let it amplify noise.</li>
+      </ul>
+
+      <h2>Ziegler–Nichols quick recipe</h2>
+      <pre>Raise Kp until the loop oscillates steadily.
+Note the critical gain Ku and oscillation period Pu.
+
+P: Kp = 0.5 Ku
+PI: Kp = 0.45 Ku, Ki = 1.2 Kp / Pu
+PID: Kp = 0.6 Ku, Ki = 2 Kp / Pu, Kd = Kp * Pu / 8</pre>
+
+      <h2>Practical fixes</h2>
+      <ul>
+        <li>Use integral clamping to avoid windup.</li>
+        <li>Filter or limit derivative action when sensor noise is present.</li>
+        <li>Compute D on measurement instead of error to reduce setpoint kick.</li>
+        <li>Choose a sample time that is fast enough for the system dynamics.</li>
+      </ul>
+
+      <p><a href="../lessons/0001-pid-assignment-overview.html">Return to lesson</a></p>
+    </main>
+  </body>
+</html>
