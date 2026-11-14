@@ -14,6 +14,7 @@ I need to produce a clear beginner-friendly explanation and working Python simul
 - I prefer starting from physical intuition, then formulas, then code and graphs.
 
 ## Out of scope
-- Deep nonlinear control theory
-- Industrial motor tuning beyond the required examples
-- Building a full hardware robot or simulation environment
+- Advanced nonlinear control design (e.g., Lyapunov analysis, sliding mode control, gain scheduling) — practical constraints like actuator saturation and anti-windup remain in scope
+- Modern state-space and optimal control (e.g., LQR, MPC, Kalman filters / state observers)
+- Industrial motor drive commissioning beyond the simulated transfer functions
+- Physical hardware deployment and embedded C/C++/RTOS implementation
